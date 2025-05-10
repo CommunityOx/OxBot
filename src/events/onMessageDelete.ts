@@ -1,4 +1,4 @@
-import { Message, EmbedBuilder, PartialMessage, TextChannel, AuditLogEvent, Attachment } from 'discord.js';
+import { Message, EmbedBuilder, PartialMessage, TextChannel, Attachment } from 'discord.js';
 import { Bot } from '..';
 import Config from '../config';
 import logger from '../utils/logger';
@@ -13,7 +13,7 @@ export const onMessageDelete = async (message: Message | PartialMessage) => {
     }
   }
 
-  if (!message.guild) return;
+  if (!message.guild || message.author?.bot) return;
 
   const content = message.content || '**NO MESSAGE SENT**';
   const authorId = message.author?.id || 'Unknown ID';
