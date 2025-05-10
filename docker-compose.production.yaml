@@ -3,6 +3,8 @@ services:
     image: communityox/oxbot:latest
     build: .
     restart: unless-stopped
+    depends_on:
+      - db
     command: bun run start:production
     volumes:
       - db-data:/app/prisma
