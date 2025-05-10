@@ -11,6 +11,7 @@ services:
 
   db:
     image: mariadb:11.4
+    working_dir: /var/lib/mysql
     command: [
       "mysqld",
       "--character-set-server=utf8mb4",
