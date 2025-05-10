@@ -1,6 +1,5 @@
 services:
   bot:
-    container_name: oxbot
     image: communityox/oxbot:latest
     build: .
     restart: unless-stopped
