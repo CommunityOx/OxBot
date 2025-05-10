@@ -9,23 +9,22 @@ services:
     env_file:
       - ./.env
 
-    db:
-      image: mariadb:11.4
-      working_dir: /var/lib/mysql
-      command: [
-          "mysqld",
-          "--character-set-server=utf8mb4",
-          "--collation-server=utf8mb4_unicode_ci",
-          "--innodb-file-per-table=1",
-          "--skip-log-bin"
-      ]
-      volumes:
-          - db-data:/var/lib/mysql
-      environment:
-          - "MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}"
-          - "MARIADB_DATABASE=${MARIADB_DATABASE}"
-          - "MARIADB_USER=${MARIADB_USER}"
-          - "MARIADB_PASSWORD=${MARIADB_PASSWORD}"
+  db:
+    image: mariadb:11.4
+    command: [
+      "mysqld",
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_ci",
+      "--innodb-file-per-table=1",
+      "--skip-log-bin"
+    ]
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      - "MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}"
+      - "MARIADB_DATABASE=${MARIADB_DATABASE}"
+      - "MARIADB_USER=${MARIADB_USER}"
+      - "MARIADB_PASSWORD=${MARIADB_PASSWORD}"
 
 volumes:
   db-data:
