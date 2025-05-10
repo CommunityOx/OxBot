@@ -19,7 +19,7 @@ export const onMessageDeleteBulk = async (
   if (!(channel instanceof TextChannel)) return;
 
   const embed = new EmbedBuilder()
-    .setColor('#ff0000')
+    .setColor('#dc2626')
     .setTitle(`Bulk Message Deletion in #${channel.name}`)
     .setDescription(`**${messages.size} messages were deleted in ${channel.toString()}**`)
     .setTimestamp()

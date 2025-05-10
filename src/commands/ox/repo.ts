@@ -7,11 +7,11 @@ import logger from '../../utils/logger';
 const Repo: Command = {
   data: new SlashCommandBuilder()
     .setName('repo')
-    .setDescription('Fetch Overextended repository')
+    .setDescription('Fetch Community Ox repository')
     .addStringOption((option) =>
       option
         .setName('name')
-        .setDescription('Name of an Overextended repository.')
+        .setDescription('Name of a Community Ox repository.')
         .setRequired(true)
         .addChoices(...ResourceChoices)
     ),
@@ -30,7 +30,7 @@ const newEmbed = async (interaction: ChatInputCommandInteraction, repository: st
     const data = response.data;
 
     const repoEmbed = new EmbedBuilder()
-      .setColor('#0099ff')
+      .setColor('#c5a279')
       .setTitle(data.name)
       .setDescription(data.description)
       .setThumbnail('https://i.imgur.com/Rp4xZiU.png')

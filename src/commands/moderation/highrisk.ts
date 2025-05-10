@@ -67,7 +67,7 @@ const HighRisk: Command = {
 
       const embed = new EmbedBuilder()
         .setTitle('High Risk Users')
-        .setColor('#ff0000')
+        .setColor('#dc2626')
         .setDescription(
           `**Risk Score Threshold:** ${threshold}%\n` +
             `**Total Users Found:** ${highRiskUsers.length}\n\n` +

@@ -13,7 +13,7 @@ const Guild: Command = {
         .addChoices(
           { name: 'ESX', value: 'esx' },
           { name: 'Qbox', value: 'qbox' },
-          { name: 'project-error', value: 'project-error' },
+          { name: 'Overextended', value: 'ox' },
           { name: 'txAdmin', value: 'txAdmin' },
           { name: 'Cfx.re', value: 'cfx' }
         )
@@ -27,10 +27,10 @@ const Guild: Command = {
         await interaction.reply('https://discord.gg/AtbwBuJHN5');
         break;
       case 'esx':
-        await interaction.reply('https://discord.com/invite/RPX2GssV6r');
+        await interaction.reply('https://discord.gg/RPX2GssV6r');
         break;
-      case 'project-error':
-        await interaction.reply('https://discord.gg/FbFXcM5rGz');
+      case 'ox':
+        await interaction.reply('https://discord.gg/hmcmv3P7YW');
         break;
       case 'txAdmin':
         await interaction.reply('https://discord.gg/yWxjt9zPWR');

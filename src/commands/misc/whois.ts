@@ -20,7 +20,7 @@ const Whois: Command = {
 
     const embed = new EmbedBuilder()
       .setTitle(`Information for ${userOption.username}`)
-      .setColor(0x000000)
+      .setColor('#c5a279')
       .setThumbnail(userOption.displayAvatarURL())
       .addFields(
         { name: 'Account Created', value: formatDate(userOption.createdAt), inline: true },

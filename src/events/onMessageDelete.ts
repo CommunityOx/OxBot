@@ -23,7 +23,7 @@ export const onMessageDelete = async (message: Message | PartialMessage) => {
   const messageContent = content.length > 4093 ? content.substring(0, 4093) + '...' : content;
 
   const embed = new EmbedBuilder()
-    .setColor('#ff0000')
+    .setColor('#dc2626')
     .setDescription(
       `**Message sent by <@${authorId}> in ${message.channel.toString()} was deleted.**\n${messageContent}\n`
     )

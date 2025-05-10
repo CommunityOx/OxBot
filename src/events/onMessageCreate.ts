@@ -66,7 +66,7 @@ async function sendCooldownLog(message: Message, lastResponseTime: number) {
   const seconds = ((remainingTime % 60000) / 1000).toFixed(0);
 
   const embed = new EmbedBuilder()
-    .setColor('#ff0000')
+    .setColor('#dc2626')
     .setTitle(`${message.author.tag} is currently being ignored by OxBot`)
     .setDescription(`Ignored for ${minutes} minutes, ${seconds} seconds`)
     .setTimestamp()

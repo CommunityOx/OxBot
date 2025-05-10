@@ -24,7 +24,7 @@ export const onMemberRemove = async (auditLogEntry: GuildAuditLogsEntry, guild: 
   if (auditLogEntry.executorId === '874059310869655662') return; // Check for Warden
 
   const removeEmbed = new EmbedBuilder()
-    .setColor('#ffa500')
+    .setColor('#ea580c')
     .setTitle('Member Kicked')
     .setDescription(`<@${targetUser.id}> has been **kicked** by <@${executor.id}>.`)
     .addFields({ name: 'Reason', value: auditLogEntry.reason || 'No reason provided.' })

@@ -69,7 +69,7 @@ async function sendDetailedResults(
 
   const embed = new EmbedBuilder()
     .setTitle('Scan Summary')
-    .setColor(categories.high.count > 0 ? '#ff0000' : totalHighMedium > 0 ? '#ff9900' : '#00ff00')
+    .setColor(categories.high.count > 0 ? '#dc2626' : totalHighMedium > 0 ? '#ea580c' : '#16a34a')
     .setDescription(
       `**Filter:** ${filter}\n` +
         `**Total users scanned:** ${totalUsers}\n\n` +
@@ -325,10 +325,10 @@ const RiskScan: Command = {
         .setTitle('Scan Summary')
         .setColor(
           categories.high.count > 0
-            ? '#ff0000'
+            ? '#dc2626'
             : categories.high.count + categories.medium.count > 0
-              ? '#ff9900'
-              : '#00ff00'
+              ? '#ea580c'
+              : '#16a34a'
         )
         .setDescription(
           `**Filter:** ${filter}\n` +

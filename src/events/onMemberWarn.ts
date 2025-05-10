@@ -13,7 +13,7 @@ export async function handleMemberWarn(
 ) {
   try {
     const warnEmbed = new EmbedBuilder()
-      .setColor('#FFFF00')
+      .setColor('#facc15')
       .setTitle('Member Warned')
       .setDescription(`<@${warnedUser.id}> has been **warned** by <@${issuer.id}>.\n\n Warn ID: ${warnId}`)
       .addFields(

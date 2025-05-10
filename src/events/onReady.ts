@@ -55,7 +55,7 @@ export const onReady = async (Bot: Client) => {
       .setTitle('🤖 Bot Started')
       .setDescription(`Successfully started and registered **${commandCount}** commands in ${Config.NODE_ENV} mode.`)
       .addFields(organizeCommandsByCategory(commands))
-      .setColor(0x00ff00)
+      .setColor('#16a34a')
       .setTimestamp()
       .setFooter({
         text: `${Config.NODE_ENV.charAt(0).toUpperCase() + Config.NODE_ENV.slice(1)} Mode • Bot Initialization`,
@@ -69,7 +69,7 @@ export const onReady = async (Bot: Client) => {
     logger.info('Bot ready');
 
     Bot.user?.setPresence({
-      activities: [{ name: 'https://overextended.dev/', type: ActivityType.Custom }],
+      activities: [{ name: 'https://coxdocs.dev/', type: ActivityType.Custom }],
       status: 'online',
     });
   } catch (error) {

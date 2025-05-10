@@ -22,7 +22,7 @@ export const onMemberUnban = async (auditLogEntry: GuildAuditLogsEntry, guild: G
   if (auditLogEntry.executorId === '874059310869655662') return; // Check for Warden
 
   const unbanEmbed = new EmbedBuilder()
-    .setColor('#00ff00')
+    .setColor('#16a34a')
     .setTitle('Member Unbanned')
     .setDescription(`<@${targetUser.id}> has been **unbanned** by <@${executor.id}>.`)
     .addFields({ name: 'Reason', value: auditLogEntry.reason || 'No reason provided.' })

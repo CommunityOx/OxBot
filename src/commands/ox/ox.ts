@@ -11,15 +11,14 @@ const Ox: Command = {
 function oxEmbed() {
   const embed = new EmbedBuilder()
     .setTitle('Overextended')
-    .setColor('#00ffff')
+    .setColor('#416bb6')
     .setDescription(
-      'Overextended is a small group working to create open-source resources for FiveM, with focus on security, performance and stability.'
+      'Overextended was a small group that operated between 2021 and 2025, creating open-source resources for FiveM with a focus on security, performance, and stability.'
     )
-    .setThumbnail('https://i.imgur.com/Rp4xZiU.png')
     .addFields(
       {
         name: 'Team',
-        value: 'If you wish to donate to any of the group members, their donation links are listed below.',
+        value: 'If you wish to donate to any of the original group members, their donation links are listed below.',
       },
       {
         name: 'Linden',

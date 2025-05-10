@@ -10,7 +10,7 @@ const Help: Command = {
   async run(interaction: CommandInteraction) {
     const embed = new EmbedBuilder()
       .setTitle('Available Commands')
-      .setColor(0x00AE86)
+      .setColor('#c5a279')
       .setDescription('Here are all the commands you can use:');
 
     commands.forEach((command) => {

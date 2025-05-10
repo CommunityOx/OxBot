@@ -3,19 +3,16 @@ import Config from '../config';
 import logger from '../utils/logger';
 
 const commandWhitelist = new Set([
+  'guild',
+  'help',
+  'whois',
+  'ox',
+  'cox',
   'docs',
   'issue',
-  'ox',
-  'ping',
   'repo',
-  'guild',
-  'whois',
-  'warn',
-  'rps',
-  'coinflip',
-  'magic8ball',
-  'node',
   'release',
+  'warn',
 ]);
 
 function getChannelMention(channel: TextChannel | null) {
@@ -30,7 +27,7 @@ export async function onSlashCommand(interaction: Interaction) {
 
     try {
       const logEmbed = new EmbedBuilder()
-        .setColor('#0099ff')
+        .setColor('#c5a279')
         .setTitle('Slash Command Used')
         .setDescription(`User <@${interaction.user.id}> used \`/${interaction.commandName}\` in ${channelMention}.`)
         .setTimestamp()
