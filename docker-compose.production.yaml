@@ -12,11 +12,5 @@ services:
     environment:
       - DATABASE_URL=file:/app/prisma/data.db
 
-  watchtower:
-    image: containrrr/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 600 oxbot  # Polls every 10 minutes and updates only the 'oxbot' container
-
 volumes:
   db-data:
