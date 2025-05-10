@@ -11,20 +11,6 @@ const RETRY_DELAY = 5 * 60 * 1000;
 export const onMemberJoin = async (member: GuildMember) => {
   logger.debug(`Member join event triggered for ${member.user.tag} (${member.id})`);
 
-  const channel = member.guild.channels.cache.get(Config.MEMBER_ACTIVITY_CHANNEL) as TextChannel;
-  if (!channel) {
-    logger.error(`Member activity channel ${Config.MEMBER_ACTIVITY_CHANNEL} not found`);
-    return;
-  }
-
-  try {
-    const welcomeMessage = `Welcome <@${member.user.id}> (${member.user.username}) to the server!`;
-    await channel.send(welcomeMessage);
-    logger.debug(`Sent welcome message for ${member.user.tag}`);
-  } catch (error) {
-    logger.error(`Failed to send welcome message for ${member.user.tag}:`, error);
-  }
-
   try {
     await prisma.user.upsert({
       where: {
