@@ -1,15 +1,12 @@
-version: '3.9'
-
 services:
   bot:
     container_name: oxbot
-    image: ipajudd/oxbot:latest
+    image: communityox/oxbot:latest
     build: .
     restart: unless-stopped
-    command: pnpm start:production
+    command: bun run start:production
     volumes:
       - db-data:/app/prisma
-      - ./.env:/app/.env
     env_file:
       - ./.env
     environment:

@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "build": "pnpm tsc",
-  "start": "pnpm node build/index.js",
-  "start:production": "pnpm build && pnpm start",
-  "dev": "pnpm nodemon -L",
+  "build": "bun run tsc",
+  "start": "bun run build/index.js",
+  "start:production": "bun run build && bun run start",
+  "dev": "bun run nodemon -L",
   "postinstall": "prisma generate"
 },
   "devDependencies": {

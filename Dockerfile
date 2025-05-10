@@ -1,18 +1,16 @@
-FROM node:22-alpine
+FROM oven/bun:1-alpine
 
 WORKDIR /app
 
 RUN apk add --no-cache openssl
 
-RUN npm install -g pnpm
-
-COPY package.json pnpm-lock.yaml ./
+COPY package.json bun.lock ./
 COPY prisma ./prisma/
 
-RUN pnpm install --frozen-lockfile
+RUN bun install --frozen-lockfile
 
 COPY . .
 
-RUN npx prisma generate
+RUN bunx prisma generate
 
-CMD [ "pnpm", "start:production" ]
+CMD ['bun', 'run', 'start:production']

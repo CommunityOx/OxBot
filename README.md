@@ -7,7 +7,7 @@ Official Discord Bot for <a href="https://overextended.dev">Overextended</a>.
 
 ## Built-with
 ![](https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=white)
-![](https://img.shields.io/badge/pnpm-F69220.svg?style=for-the-badge&logo=pnpm&logoColor=white)
+![](https://img.shields.io/badge/bun-000.svg?style=for-the-badge&logo=bun&logoColor=white)
 ![](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white)
 ![](https://img.shields.io/badge/Prisma-2D3748.svg?style=for-the-badge&logo=Prisma&logoColor=white)
 
