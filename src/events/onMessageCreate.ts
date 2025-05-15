@@ -72,7 +72,7 @@ async function sendCooldownLog(message: Message, lastResponseTime: number) {
     .setTimestamp()
     .setFooter({ text: `User ID: ${message.author.id}` });
 
-  const logChannel = Bot.channels.cache.get(Config.LOG_CHANNEL) as TextChannel;
+  const logChannel = Bot.channels.cache.get(Config.ACTION_LOG_CHANNEL) as TextChannel;
 
   if (logChannel) {
     try {

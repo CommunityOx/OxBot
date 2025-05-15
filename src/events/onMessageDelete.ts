@@ -44,7 +44,7 @@ export const onMessageDelete = async (message: Message | PartialMessage) => {
     }
   });
 
-  const logChannel = Bot.channels.cache.get(Config.LOG_CHANNEL) as TextChannel;
+  const logChannel = Bot.channels.cache.get(Config.MESSAGE_LOG_CHANNEL) as TextChannel;
   if (logChannel) {
     try {
       logChannel.send({ embeds: [embed] });

@@ -12,7 +12,6 @@ const commandWhitelist = new Set([
   'issue',
   'repo',
   'release',
-  'warn',
 ]);
 
 function getChannelMention(channel: TextChannel | null) {
@@ -34,12 +33,12 @@ export async function onSlashCommand(interaction: Interaction) {
         .setFooter({ text: `User ID: ${interaction.user.id}` });
 
       const logChannel = (await interaction.guild.channels
-        .fetch(Config.LOG_CHANNEL)
+        .fetch(Config.ACTION_LOG_CHANNEL)
         .catch(logger.error)) as TextChannel;
       if (logChannel) {
         await logChannel.send({ embeds: [logEmbed] });
       } else {
-        logger.error(`Log channel with ID ${Config.LOG_CHANNEL} not found`);
+        logger.error(`Log channel with ID ${Config.ACTION_LOG_CHANNEL} not found`);
       }
     } catch (error) {
       logger.error('Failed to log slash command usage:', error);

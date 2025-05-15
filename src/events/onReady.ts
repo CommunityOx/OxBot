@@ -48,7 +48,7 @@ export const onReady = async (Bot: Client) => {
       logger.info(`Successfully registered ${commandData.length} global commands`);
     }
 
-    const logChannel = Bot.channels.cache.get(Config.LOG_CHANNEL) as TextChannel;
+    const logChannel = Bot.channels.cache.get(Config.ACTION_LOG_CHANNEL) as TextChannel;
     const commandCount = commandData.length;
 
     const embed = new EmbedBuilder()

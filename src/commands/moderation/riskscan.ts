@@ -296,7 +296,7 @@ const RiskScan: Command = {
     try {
       const filter = interaction.options.getString('filter', true);
       const limit = Math.min(interaction.options.getInteger('limit') || 1000, 5000);
-      const logChannel = interaction.guild.channels.cache.get(Config.LOG_CHANNEL) as TextChannel;
+      const logChannel = interaction.guild.channels.cache.get(Config.ACTION_LOG_CHANNEL) as TextChannel;
 
       if (!logChannel || logChannel.type !== ChannelType.GuildText) {
         await interaction.editReply('Unable to find the configured log channel.');

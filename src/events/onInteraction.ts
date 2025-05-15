@@ -11,7 +11,7 @@ export const onInteraction = async (interaction: Interaction) => {
 
   try {
     if (interaction.commandName === 'kick' || interaction.commandName === 'bulkunban') {
-      const logChannel = interaction.guild?.channels.cache.get(Config.LOG_CHANNEL) as TextChannel;
+      const logChannel = interaction.guild?.channels.cache.get(Config.ACTION_LOG_CHANNEL) as TextChannel;
       logChannel && logChannel.send(`${interaction.user.tag} used **${interaction.commandName}**!`);
     }
 

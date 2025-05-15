@@ -25,7 +25,7 @@ export const onMessageDeleteBulk = async (
     .setTimestamp()
     .setFooter({ text: `Channel ID: ${channel.id}` });
 
-  const logChannel = Bot.channels.cache.get(Config.LOG_CHANNEL) as TextChannel;
+  const logChannel = Bot.channels.cache.get(Config.ACTION_LOG_CHANNEL) as TextChannel;
   if (logChannel) {
     try {
       logChannel.send({ embeds: [embed] });

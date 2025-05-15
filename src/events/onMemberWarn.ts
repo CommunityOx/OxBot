@@ -32,9 +32,9 @@ export async function handleMemberWarn(
       warnEmbed.addFields({ name: 'Timeout Duration', value: durationText, inline: true });
     }
 
-    const channel = guild.channels.cache.get(Config.LOG_CHANNEL) as TextChannel;
+    const channel = guild.channels.cache.get(Config.ACTION_LOG_CHANNEL) as TextChannel;
     if (!channel) {
-      throw new Error(`Channel with ID ${Config.LOG_CHANNEL} not found`);
+      throw new Error(`Channel with ID ${Config.ACTION_LOG_CHANNEL} not found`);
     }
 
     await channel.send({ embeds: [warnEmbed] });

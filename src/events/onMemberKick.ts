@@ -36,6 +36,6 @@ export const onMemberRemove = async (auditLogEntry: GuildAuditLogsEntry, guild: 
     .setFooter({ text: `Member ID: ${targetUser.id}` })
     .setThumbnail(targetUser.displayAvatarURL());
 
-  const channel = guild.channels.cache.get(Config.LOG_CHANNEL) as TextChannel;
+  const channel = guild.channels.cache.get(Config.ACTION_LOG_CHANNEL) as TextChannel;
   channel && channel.send({ embeds: [removeEmbed] });
 };
