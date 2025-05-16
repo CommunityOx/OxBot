@@ -40,3 +40,9 @@ export const guidelines = '<#1370839046494093344>';
 export const whitelistedChannels = [
   '1367098557169143858', // book-club
 ];
+
+export const channelIdNames: Record<string, string> = {
+  '1367096781308952609': 'general',
+  '1367099791959658536': 'shitposting',
+  '1369649770708074556': 'entertainment',
+}

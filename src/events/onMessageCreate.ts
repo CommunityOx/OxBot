@@ -1,5 +1,5 @@
 import { Message, EmbedBuilder, TextChannel } from 'discord.js';
-import { ignoredRoles, whitelistedChannels } from '../constants';
+import { channelIdNames, ignoredRoles, whitelistedChannels } from '../constants';
 import { positivePatterns, resourcePatterns } from '../utils/patterns';
 import { guidelineResponses, resourceResponses, cooldownResponses } from '../handlers/botResponsesHandler';
 import { Bot } from '..';
@@ -42,9 +42,10 @@ export const onMessageCreate = async (message: Message) => {
 
   if (isResourceMatch || isPositiveMatch) {
     if (userData.messageCount < 2) {
+      const channelName = channelIdNames[message.channelId] || 'general';
       const responseArray = isResourceMatch
         ? resourceResponses
-        : guidelineResponses[message.channelId] || guidelineResponses['general'];
+        : guidelineResponses[channelName];
       const randomResponse = responseArray[Math.floor(Math.random() * responseArray.length)];
       await message.reply(randomResponse);
       lastGlobalResponseTime = now;
