@@ -23,7 +23,7 @@ export const Bot = new Client({
   ],
 });
 
-Bot.once('ready', async () => await onReady(Bot));
+Bot.once(Events.ClientReady, async () => await onReady(Bot));
 
 Bot.on(Events.GuildAuditLogEntryCreate, async (auditLogEntry, guild) => {
   switch (auditLogEntry.action) {
@@ -44,12 +44,12 @@ Bot.on(Events.GuildAuditLogEntryCreate, async (auditLogEntry, guild) => {
   }
 });
 
-Bot.on('guildMemberAdd', async (member) => await onMemberJoin(member));
-Bot.on('guildMemberUpdate', async (oldMember, newMember) => await onMemberUpdate(oldMember, newMember));
-Bot.on('messageDelete', async (message) => await onMessageDelete(message));
-Bot.on('messageCreate', async (message) => await onMessageCreate(message));
-Bot.on('messageDeleteBulk', onMessageDeleteBulk);
-Bot.on('interactionCreate', async (interaction) => {
+Bot.on(Events.GuildMemberAdd, async (member) => await onMemberJoin(member));
+Bot.on(Events.GuildMemberUpdate, async (oldMember, newMember) => await onMemberUpdate(oldMember, newMember));
+Bot.on(Events.MessageDelete, async (message) => await onMessageDelete(message));
+Bot.on(Events.MessageCreate, async (message) => await onMessageCreate(message));
+Bot.on(Events.MessageBulkDelete, onMessageDeleteBulk);
+Bot.on(Events.InteractionCreate, async (interaction) => {
   await onInteraction(interaction);
   await onSlashCommand(interaction);
 });
