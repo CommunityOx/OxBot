@@ -51,7 +51,10 @@ const Ban: Command = {
       await interaction.reply({ content: `<@${user.id}> has been **banned**. Reason: ${reason}` });
     } catch (error) {
       logger.error(error);
-      await interaction.reply({ content: 'An error occurred while processing the ban.', flags: MessageFlags.Ephemeral });
+      await interaction.reply({
+        content: 'An error occurred while processing the ban.',
+        flags: MessageFlags.Ephemeral,
+      });
     }
   },
 };

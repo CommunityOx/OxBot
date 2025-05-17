@@ -32,7 +32,10 @@ const EditWarning: Command = {
         data: { reason: newMessageOption },
       });
 
-      await interaction.reply({ content: `Warning ID ${updatedWarning.id} has been updated.`, flags: MessageFlags.Ephemeral });
+      await interaction.reply({
+        content: `Warning ID ${updatedWarning.id} has been updated.`,
+        flags: MessageFlags.Ephemeral,
+      });
     } catch (error) {
       logger.error('Error updating the warning:', error);
       let errorMessage = 'An error occurred while updating the warning.';

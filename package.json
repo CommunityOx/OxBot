@@ -8,13 +8,13 @@
     "start": "bun run build/index.js",
     "start:production": "bun run build && bun run start",
     "dev": "bun run nodemon -L",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "format": "prettier --write src"
   },
   "devDependencies": {
     "@types/node": "^22.15.18",
     "@types/node-fetch": "^2.6.12",
     "concurrently": "^9.1.2",
-    "eslint": "^9.27.0",
     "nodemon": "^3.1.10",
     "prettier": "3.5.3",
     "prisma": "^6.8.2",

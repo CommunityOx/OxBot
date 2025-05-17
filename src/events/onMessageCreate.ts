@@ -16,19 +16,11 @@ const userCooldownPeriod = 15 * 60 * 1000; // 15 minutes
 const globalCooldownPeriod = 10 * 1000; // 10 seconds
 let lastGlobalResponseTime = 0;
 
-const channelIdNames = Object.fromEntries(Object.entries(Channels).map(([key, value]) => [value, key]))
+const channelIdNames = Object.fromEntries(Object.entries(Channels).map(([key, value]) => [value, key]));
 
-const ignoredChannels: string[] = [
-  Channels.BookClub,
-];
+const ignoredChannels: string[] = [Channels.BookClub];
 
-const ignoredRoles: string[] = [
-  Roles.Cox,
-  Roles.LegacyOx,
-  Roles.Moderator,
-  Roles.RecognizedMember,
-  Roles.GitHub,
-];
+const ignoredRoles: string[] = [Roles.Cox, Roles.LegacyOx, Roles.Moderator, Roles.RecognizedMember, Roles.GitHub];
 
 export const onMessageCreate = async (message: Message) => {
   if (message.author.bot || ignoredChannels.includes(message.channelId)) return;
@@ -57,9 +49,7 @@ export const onMessageCreate = async (message: Message) => {
   if (isResourceMatch || isPositiveMatch) {
     if (userData.messageCount < 2) {
       const channelName = channelIdNames[message.channelId] || 'General';
-      const responseArray = isResourceMatch
-        ? resourceResponses
-        : guidelineResponses[channelName];
+      const responseArray = isResourceMatch ? resourceResponses : guidelineResponses[channelName];
       const randomResponse = responseArray[Math.floor(Math.random() * responseArray.length)];
       await message.reply(randomResponse);
       lastGlobalResponseTime = now;

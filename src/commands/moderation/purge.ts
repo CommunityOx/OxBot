@@ -1,4 +1,10 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, TextChannel, MessageFlags } from 'discord.js';
+import {
+  SlashCommandBuilder,
+  ChatInputCommandInteraction,
+  PermissionFlagsBits,
+  TextChannel,
+  MessageFlags,
+} from 'discord.js';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
 
@@ -42,7 +48,10 @@ const Purge: Command = {
     const count = interaction.options.getInteger('count');
 
     if (!(interaction.channel instanceof TextChannel)) {
-      await interaction.reply({ content: 'This command can only be used in text channels.', flags: MessageFlags.Ephemeral });
+      await interaction.reply({
+        content: 'This command can only be used in text channels.',
+        flags: MessageFlags.Ephemeral,
+      });
       return;
     }
 
@@ -100,7 +109,9 @@ const Purge: Command = {
           messagesAfterSpecified.length > count ? messagesAfterSpecified.slice(0, count) : messagesAfterSpecified;
 
         await interaction.channel.bulkDelete(messagesToDelete, true);
-        await interaction.editReply(`Successfully deleted ${messagesToDelete.length} messages after the specified message.`);
+        await interaction.editReply(
+          `Successfully deleted ${messagesToDelete.length} messages after the specified message.`
+        );
       } catch (error) {
         logger.error(error);
         await interaction.editReply('An error occurred while deleting messages.');

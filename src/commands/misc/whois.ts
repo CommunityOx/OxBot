@@ -1,4 +1,9 @@
-import { SlashCommandBuilder, CommandInteraction, EmbedBuilder, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
+import {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  ChatInputCommandInteraction,
+  MessageFlags,
+} from 'discord.js';
 import { Command } from '../../interfaces/command';
 
 const Whois: Command = {

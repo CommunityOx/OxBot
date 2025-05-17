@@ -3,9 +3,7 @@ import { Command } from '../../interfaces/command';
 import commands from '../../handlers/commandHandler';
 
 const Help: Command = {
-  data: new SlashCommandBuilder()
-    .setName('help')
-    .setDescription('List all available commands'),
+  data: new SlashCommandBuilder().setName('help').setDescription('List all available commands'),
 
   async run(interaction: CommandInteraction) {
     const embed = new EmbedBuilder()

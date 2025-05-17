@@ -3,7 +3,6 @@ import {
   PermissionFlagsBits,
   ChatInputCommandInteraction,
   EmbedBuilder,
-  TextChannel,
   MessageFlags,
 } from 'discord.js';
 import { PrismaClient } from '@prisma/client';

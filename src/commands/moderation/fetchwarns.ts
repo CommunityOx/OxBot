@@ -26,15 +26,23 @@ const FetchWarns: Command = {
       });
 
       if (warnings.length === 0) {
-        await interaction.reply({ content: `No warnings found for <@${userOption.id}>.`, flags: MessageFlags.Ephemeral });
+        await interaction.reply({
+          content: `No warnings found for <@${userOption.id}>.`,
+          flags: MessageFlags.Ephemeral,
+        });
         return;
       }
 
-      const warningMessages = warnings.map((warn: { id: number, reason: string }) => `ID: ${warn.id}, Reason: ${warn.reason}`).join('\n');
+      const warningMessages = warnings
+        .map((warn: { id: number; reason: string }) => `ID: ${warn.id}, Reason: ${warn.reason}`)
+        .join('\n');
       await interaction.reply({ content: `Warnings for <@${userOption.id}>:\n${warningMessages}` });
     } catch (error) {
       logger.error(error);
-      await interaction.reply({ content: 'An error occurred while fetching the warnings.', flags: MessageFlags.Ephemeral });
+      await interaction.reply({
+        content: 'An error occurred while fetching the warnings.',
+        flags: MessageFlags.Ephemeral,
+      });
     }
   },
 };

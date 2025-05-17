@@ -9,7 +9,6 @@ export const positivePatterns = [
   /\b(urgent|asap|immediat?e?ly|critical|important)\b/i,
 ];
 
-
 export const resourcePatterns = [
   /ox[ _]?inventory/i, // Matches "ox inventory", "oxinventory", "ox_inventory"
   /ox[ _]?lib/i, // Matches "ox lib", "oxlib", "ox_lib"

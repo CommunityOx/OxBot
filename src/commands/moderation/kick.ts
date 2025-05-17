@@ -1,4 +1,10 @@
-import { GuildMember, SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
+import {
+  GuildMember,
+  SlashCommandBuilder,
+  PermissionFlagsBits,
+  ChatInputCommandInteraction,
+  MessageFlags,
+} from 'discord.js';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
 

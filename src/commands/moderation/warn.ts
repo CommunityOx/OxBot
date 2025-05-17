@@ -166,7 +166,9 @@ const Warn: Command = {
       const result = await warnUser(member, issuer, reasonOption, false);
 
       if (result.success) {
-        await (interaction.channel as TextChannel)?.send(`<@${userOption.id}> has been warned. Reason: ${reasonOption}`);
+        await (interaction.channel as TextChannel)?.send(
+          `<@${userOption.id}> has been warned. Reason: ${reasonOption}`
+        );
         await interaction.editReply(
           `Successfully warned <@${userOption.id}>. User is timed out for ${result.timeoutDuration! / 60000} minutes.`
         );

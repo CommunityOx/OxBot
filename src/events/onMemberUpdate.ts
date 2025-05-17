@@ -6,8 +6,8 @@ export const onMemberUpdate = async (oldMember: GuildMember | PartialGuildMember
   const hasGitHubRole = newMember.roles.cache.has(Roles.GitHub);
   const hasWardenTagRole = newMember.roles.cache.has(Roles.WardenTag);
 
-  // remove Support Access role (user unlinked their GitHub or got tagged by Warden)
   if (newMember.roles.cache.has(Roles.SupportAccess)) {
+    // remove Support Access role (user unlinked their GitHub or got tagged by Warden)
     if (!hasGitHubRole || hasWardenTagRole) {
       try {
         await newMember.roles.remove(Roles.SupportAccess);
@@ -16,9 +16,8 @@ export const onMemberUpdate = async (oldMember: GuildMember | PartialGuildMember
         logger.error(`Failed to remove role role ${newMember.user.username}: ${errorMessage}`);
       }
     }
-
-  // add Support Access role (user linked their GitHub or got untagged by Warden)
   } else {
+    // add Support Access role (user linked their GitHub or got untagged by Warden)
     if (hasGitHubRole && !hasWardenTagRole) {
       try {
         await newMember.roles.add(Roles.SupportAccess);

@@ -35,7 +35,7 @@ export const Roles: Record<string, string> = {
   SupportAccess: '1373360625887215616',
   WardenTag: '1367126592446267425',
   Member: '1367235724935696506',
-}
+};
 
 export const Channels: Record<string, string> = {
   Guidelines: '1370839046494093344',
@@ -43,4 +43,4 @@ export const Channels: Record<string, string> = {
   General: '1367096781308952609',
   Shitposting: '1367099791959658536',
   Entertainment: '1369649770708074556',
-}
+};
