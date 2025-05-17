@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember } from 'discord.js';
+import { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, GuildMember, MessageFlags } from 'discord.js';
 import { PrismaClient } from '@prisma/client';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
@@ -22,11 +22,11 @@ const ClearWarn: Command = {
 
   async run(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
-      await interaction.reply({ content: 'This command can only be used in a guild.', ephemeral: true });
+      await interaction.reply({ content: 'This command can only be used in a guild.', flags: MessageFlags.Ephemeral });
       return;
     }
 
-    interaction.deferReply({ ephemeral: true });
+    interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     const userOption = interaction.options.getUser('user', true);
     const member: GuildMember | null = await interaction.guild.members.fetch(userOption.id).catch(() => null);

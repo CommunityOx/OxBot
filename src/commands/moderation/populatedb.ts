@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+import { ChatInputCommandInteraction, GuildMember, SlashCommandBuilder, PermissionFlagsBits, MessageFlags } from 'discord.js';
 import { Command } from '../../interfaces/command';
 import { PrismaClient } from '@prisma/client';
 import logger from '../../utils/logger';
@@ -77,12 +77,12 @@ const PopulateDB: Command = {
     if (!interaction.guild) {
       await interaction.reply({
         content: 'This command can only be used in a guild.',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
 
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     try {
       let members;
@@ -159,7 +159,7 @@ const PopulateDB: Command = {
       } else {
         await interaction.reply({
           content: `An error occurred while populating the database: ${errorMessage}`,
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         });
       }
     }

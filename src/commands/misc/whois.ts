@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, CommandInteraction, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
+import { SlashCommandBuilder, CommandInteraction, EmbedBuilder, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
 import { Command } from '../../interfaces/command';
 
 const Whois: Command = {
@@ -14,7 +14,7 @@ const Whois: Command = {
     const member = await interaction.guild?.members.fetch(userOption.id);
 
     if (!member) {
-      await interaction.reply({ content: 'User not found in this guild.', ephemeral: true });
+      await interaction.reply({ content: 'User not found in this guild.', flags: MessageFlags.Ephemeral });
       return;
     }
 

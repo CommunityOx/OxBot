@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction } from 'discord.js';
+import { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
 import { PrismaClient, Prisma } from '@prisma/client';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
@@ -19,7 +19,7 @@ const EditWarning: Command = {
 
   async run(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
-      await interaction.reply({ content: 'This command can only be used in a guild.', ephemeral: true });
+      await interaction.reply({ content: 'This command can only be used in a guild.', flags: MessageFlags.Ephemeral });
       return;
     }
 
@@ -32,7 +32,7 @@ const EditWarning: Command = {
         data: { reason: newMessageOption },
       });
 
-      await interaction.reply({ content: `Warning ID ${updatedWarning.id} has been updated.`, ephemeral: true });
+      await interaction.reply({ content: `Warning ID ${updatedWarning.id} has been updated.`, flags: MessageFlags.Ephemeral });
     } catch (error) {
       logger.error('Error updating the warning:', error);
       let errorMessage = 'An error occurred while updating the warning.';
@@ -41,7 +41,7 @@ const EditWarning: Command = {
         errorMessage = 'Warning not found.';
       }
 
-      await interaction.reply({ content: errorMessage, ephemeral: true });
+      await interaction.reply({ content: errorMessage, flags: MessageFlags.Ephemeral });
     }
   },
 };

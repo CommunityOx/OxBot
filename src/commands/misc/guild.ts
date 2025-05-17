@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { Command } from '../../interfaces/command';
 
 const Guild: Command = {
@@ -39,7 +39,7 @@ const Guild: Command = {
         await interaction.reply('https://discord.gg/fivem');
         break;
       default:
-        await interaction.reply({ content: 'Invalid guild selected.', ephemeral: true });
+        await interaction.reply({ content: 'Invalid guild selected.', flags: MessageFlags.Ephemeral });
         break;
     }
   },

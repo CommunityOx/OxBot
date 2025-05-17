@@ -1,4 +1,4 @@
-import { Interaction, TextChannel } from 'discord.js';
+import { Interaction, MessageFlags, TextChannel } from 'discord.js';
 import commands from '../handlers/commandHandler';
 import Config from '../config';
 import logger from '../utils/logger';
@@ -25,7 +25,7 @@ export const onInteraction = async (interaction: Interaction) => {
       await interaction
         .reply({
           content: 'There was an error executing that command.',
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         })
         .catch((err) => {
           logger.error('Error sending error response:', err);

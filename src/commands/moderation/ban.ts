@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction } from 'discord.js';
+import { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
 import { PrismaClient } from '@prisma/client';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
@@ -21,7 +21,7 @@ const Ban: Command = {
 
   async run(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
-      await interaction.reply({ content: 'This command can only be used in a guild.', ephemeral: true });
+      await interaction.reply({ content: 'This command can only be used in a guild.', flags: MessageFlags.Ephemeral });
       return;
     }
 
@@ -33,7 +33,7 @@ const Ban: Command = {
     const deleteMessageDays = deleteMessageDaysOption || 0;
 
     if (!user) {
-      await interaction.reply({ content: 'User not found!', ephemeral: true });
+      await interaction.reply({ content: 'User not found!', flags: MessageFlags.Ephemeral });
       return;
     }
 
@@ -48,10 +48,10 @@ const Ban: Command = {
         },
       });
 
-      await interaction.reply({ content: `<@${user.id}> has been **banned**. Reason: ${reason}`, ephemeral: false });
+      await interaction.reply({ content: `<@${user.id}> has been **banned**. Reason: ${reason}` });
     } catch (error) {
       logger.error(error);
-      await interaction.reply({ content: 'An error occurred while processing the ban.', ephemeral: true });
+      await interaction.reply({ content: 'An error occurred while processing the ban.', flags: MessageFlags.Ephemeral });
     }
   },
 };

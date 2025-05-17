@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { Command } from '../../interfaces/command';
 import { GithubUrl, ResourceChoices } from '../../constants';
 
@@ -16,7 +16,7 @@ const Issue: Command = {
   async run(interaction: ChatInputCommandInteraction) {
     const repo = interaction.options.getString('repository', true);
     if (!repo) {
-      await interaction.reply({ content: 'Invalid repository selected.', ephemeral: true });
+      await interaction.reply({ content: 'Invalid repository selected.', flags: MessageFlags.Ephemeral });
       return;
     }
     const link = `${GithubUrl}/${repo}/issues/new/choose`;

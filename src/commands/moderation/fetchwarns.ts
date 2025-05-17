@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
+import { SlashCommandBuilder, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
 import { PrismaClient } from '@prisma/client';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
@@ -13,7 +13,7 @@ const FetchWarns: Command = {
 
   async run(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
-      await interaction.reply({ content: 'This command can only be used in a guild.', ephemeral: true });
+      await interaction.reply({ content: 'This command can only be used in a guild.', flags: MessageFlags.Ephemeral });
       return;
     }
 
@@ -26,15 +26,15 @@ const FetchWarns: Command = {
       });
 
       if (warnings.length === 0) {
-        await interaction.reply({ content: `No warnings found for <@${userOption.id}>.`, ephemeral: true });
+        await interaction.reply({ content: `No warnings found for <@${userOption.id}>.`, flags: MessageFlags.Ephemeral });
         return;
       }
 
       const warningMessages = warnings.map((warn: { id: number, reason: string }) => `ID: ${warn.id}, Reason: ${warn.reason}`).join('\n');
-      await interaction.reply({ content: `Warnings for <@${userOption.id}>:\n${warningMessages}`, ephemeral: false });
+      await interaction.reply({ content: `Warnings for <@${userOption.id}>:\n${warningMessages}` });
     } catch (error) {
       logger.error(error);
-      await interaction.reply({ content: 'An error occurred while fetching the warnings.', ephemeral: true });
+      await interaction.reply({ content: 'An error occurred while fetching the warnings.', flags: MessageFlags.Ephemeral });
     }
   },
 };

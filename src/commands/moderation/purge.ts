@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, TextChannel } from 'discord.js';
+import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, TextChannel, MessageFlags } from 'discord.js';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
 
@@ -42,11 +42,11 @@ const Purge: Command = {
     const count = interaction.options.getInteger('count');
 
     if (!(interaction.channel instanceof TextChannel)) {
-      await interaction.reply({ content: 'This command can only be used in text channels.', ephemeral: true });
+      await interaction.reply({ content: 'This command can only be used in text channels.', flags: MessageFlags.Ephemeral });
       return;
     }
 
-    interaction.deferReply({ ephemeral: true });
+    interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     if (subcommand === 'any') {
       try {

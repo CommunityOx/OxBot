@@ -7,6 +7,7 @@ import {
   TextChannel,
   EmbedBuilder,
   ChannelType,
+  MessageFlags,
 } from 'discord.js';
 import { PrismaClient } from '@prisma/client';
 import { Command } from '../../interfaces/command';
@@ -287,11 +288,11 @@ const RiskScan: Command = {
 
   async run(interaction: ChatInputCommandInteraction) {
     if (!interaction.guild) {
-      await interaction.reply({ content: 'This command can only be used in a guild.', ephemeral: true });
+      await interaction.reply({ content: 'This command can only be used in a guild.', flags: MessageFlags.Ephemeral });
       return;
     }
 
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     try {
       const filter = interaction.options.getString('filter', true);

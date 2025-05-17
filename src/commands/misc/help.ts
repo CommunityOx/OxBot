@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, CommandInteraction, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, CommandInteraction, EmbedBuilder, MessageFlags } from 'discord.js';
 import { Command } from '../../interfaces/command';
 import commands from '../../handlers/commandHandler';
 
@@ -17,7 +17,7 @@ const Help: Command = {
       embed.addFields({ name: `/${command.data.name}`, value: command.data.description });
     });
 
-    await interaction.reply({ embeds: [embed], ephemeral: true });
+    await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
   },
 };
 
