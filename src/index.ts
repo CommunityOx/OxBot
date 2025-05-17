@@ -8,6 +8,7 @@ import { onMemberRemove } from './events/onMemberKick';
 import { onMessageDelete } from './events/onMessageDelete';
 import { onMessageCreate } from './events/onMessageCreate';
 import { onMemberJoin } from './events/onMemberJoin';
+import { onMemberUpdate } from './events/onMemberUpdate';
 import { onMessageDeleteBulk } from './events/onPurge';
 import { onSlashCommand } from './events/onSlashCommand';
 import { onMemberRoleUpdate } from './events/onMemberRoleUpdate';
@@ -44,6 +45,7 @@ Bot.on(Events.GuildAuditLogEntryCreate, async (auditLogEntry, guild) => {
 });
 
 Bot.on('guildMemberAdd', async (member) => await onMemberJoin(member));
+Bot.on('guildMemberUpdate', async (oldMember, newMember) => await onMemberUpdate(oldMember, newMember));
 Bot.on('messageDelete', async (message) => await onMessageDelete(message));
 Bot.on('messageCreate', async (message) => await onMessageCreate(message));
 Bot.on('messageDeleteBulk', onMessageDeleteBulk);
