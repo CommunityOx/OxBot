@@ -1,7 +1,6 @@
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { Command } from '../../interfaces/command';
 import { GithubApi, GithubUrl, ResourceChoices } from '../../constants';
-import axios from 'axios';
 import logger from '../../utils/logger';
 
 const Repo: Command = {
@@ -25,9 +24,8 @@ const newEmbed = async (interaction: ChatInputCommandInteraction, repository: st
   try {
     interaction.deferReply();
 
-    const response = await axios.get(`${GithubApi}/${repository}`);
-
-    const data = response.data;
+    const response = await fetch(`${GithubApi}/${repository}`);
+    const data: any = await response.json();
 
     const repoEmbed = new EmbedBuilder()
       .setColor('#c5a279')
