@@ -1,8 +1,8 @@
-import { guidelines } from '../constants';
+import { Channels } from '../constants';
 import responsesData from '../utils/botResponses.json';
 
 const processResponse = (response: string) => {
-  return response.replace(/{guidelines}/g, guidelines);
+  return response.replace(/{guidelines}/g, `<#${Channels.Guidelines}>`);
 };
 
 const guidelineResponses = Object.fromEntries(

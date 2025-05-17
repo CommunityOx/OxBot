@@ -1,5 +1,5 @@
 import { Message, EmbedBuilder, TextChannel } from 'discord.js';
-import { channelIdNames, ignoredRoles, whitelistedChannels } from '../constants';
+import { Channels, Roles } from '../constants';
 import { positivePatterns, resourcePatterns } from '../utils/patterns';
 import { guidelineResponses, resourceResponses, cooldownResponses } from '../handlers/botResponsesHandler';
 import { Bot } from '..';
@@ -16,8 +16,22 @@ const userCooldownPeriod = 15 * 60 * 1000; // 15 minutes
 const globalCooldownPeriod = 10 * 1000; // 10 seconds
 let lastGlobalResponseTime = 0;
 
+const channelIdNames = Object.fromEntries(Object.entries(Channels).map(([key, value]) => [value, key]))
+
+const ignoredChannels: string[] = [
+  Channels.BookClub,
+];
+
+const ignoredRoles: string[] = [
+  Roles.Cox,
+  Roles.LegacyOx,
+  Roles.Moderator,
+  Roles.RecognizedMember,
+  Roles.GitHub,
+];
+
 export const onMessageCreate = async (message: Message) => {
-  if (message.author.bot || whitelistedChannels.includes(message.channelId)) return;
+  if (message.author.bot || ignoredChannels.includes(message.channelId)) return;
 
   const member = message.member;
   if (!member || member.roles.cache.some((role) => ignoredRoles.includes(role.id))) return;
@@ -42,7 +56,7 @@ export const onMessageCreate = async (message: Message) => {
 
   if (isResourceMatch || isPositiveMatch) {
     if (userData.messageCount < 2) {
-      const channelName = channelIdNames[message.channelId] || 'general';
+      const channelName = channelIdNames[message.channelId] || 'General';
       const responseArray = isResourceMatch
         ? resourceResponses
         : guidelineResponses[channelName];

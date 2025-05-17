@@ -1,5 +1,5 @@
-import { Guild, GuildAuditLogsEntry, EmbedBuilder, TextChannel, AuditLogEvent, Role } from 'discord.js';
-import Config from '../config';
+import { Guild, GuildAuditLogsEntry, AuditLogEvent } from 'discord.js';
+import { Roles } from '../constants';
 import logger from '../utils/logger';
 
 export const onMemberRoleUpdate = async (auditLogEntry: GuildAuditLogsEntry, guild: Guild) => {
@@ -26,10 +26,10 @@ export const onMemberRoleUpdate = async (auditLogEntry: GuildAuditLogsEntry, gui
     return logger.info('Unable to find targetUser following MemberRoleUpdate triggering by VVarden');
   }
 
-  if (targetUser.roles.cache.has(Config.MEMBER_ROLE_ID)) return; // Member still has the role, no further action required
+  if (targetUser.roles.cache.has(Roles.Member)) return; // Member still has the role, no further action required
 
   try {
-    await targetUser.roles.add(Config.MEMBER_ROLE_ID);
+    await targetUser.roles.add(Roles.Member);
     logger.info(
       `${targetUser.user.username} was unblacklisted by VVarden and lost the default member role, role has been returned.`
     );

@@ -1,6 +1,7 @@
 export const GithubUrl = 'https://github.com/communityox';
 export const GithubApi = 'https://api.github.com/repos/communityox';
 export const DocsUrl = 'https://coxdocs.dev';
+
 export const Resources = [
   'ox_lib',
   'ox_inventory',
@@ -25,24 +26,21 @@ export const ResourceChoices = (() => {
   return arr;
 })();
 
-// ignored role IDs for onMessageCreate.ts
-export const ignoredRoles = [
-  '1367097096972406814', // Cox
-  '1367888513013383280', // Legacy Ox
-  '1367628486117949440', // Moderator
-  '1367126506958098513', // Recognized Member
-  '1369761529788108910', // GitHub
-];
+export const Roles: Record<string, string> = {
+  Cox: '1367097096972406814',
+  LegacyOx: '1367888513013383280',
+  Moderator: '1367628486117949440',
+  RecognizedMember: '1367126506958098513',
+  GitHub: '1369761529788108910',
+  SupportAccess: '1373360625887215616',
+  WardenTag: '1367126592446267425',
+  Member: '1367235724935696506',
+}
 
-// channel ID for support-guidelines
-export const guidelines = '<#1370839046494093344>';
-
-export const whitelistedChannels = [
-  '1367098557169143858', // book-club
-];
-
-export const channelIdNames: Record<string, string> = {
-  '1367096781308952609': 'general',
-  '1367099791959658536': 'shitposting',
-  '1369649770708074556': 'entertainment',
+export const Channels: Record<string, string> = {
+  Guidelines: '1370839046494093344',
+  BookClub: '1367098557169143858',
+  General: '1367096781308952609',
+  Shitposting: '1367099791959658536',
+  Entertainment: '1369649770708074556',
 }

@@ -1,5 +1,5 @@
-import { GuildMember, TextChannel } from 'discord.js';
-import Config from '../config';
+import { GuildMember } from 'discord.js';
+import { Roles } from '../constants';
 import logger from '../utils/logger';
 import { assessAndWarnHighRiskUser } from '../utils/riskScoring';
 import { PrismaClient } from '@prisma/client';
@@ -42,10 +42,10 @@ export const onMemberJoin = async (member: GuildMember) => {
     );
   }
 
-  const role = member.guild.roles.cache.get(Config.MEMBER_ROLE_ID);
+  const role = member.guild.roles.cache.get(Roles.Member);
 
   if (!role) {
-    logger.error(`Member role not found: ${Config.MEMBER_ROLE_ID}`);
+    logger.error(`Member role not found: ${Roles.Member}`);
     return;
   }
 
