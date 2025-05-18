@@ -22,7 +22,7 @@ const Repo: Command = {
 
 const newEmbed = async (interaction: ChatInputCommandInteraction, repository: string) => {
   try {
-    interaction.deferReply();
+    await interaction.deferReply();
 
     const response = await fetch(`${GithubApi}/${repository}`);
     const data: any = await response.json();
