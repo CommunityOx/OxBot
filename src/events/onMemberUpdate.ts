@@ -25,6 +25,8 @@ export const onMemberUpdate = async (oldMember: GuildMember | PartialGuildMember
         const errorMessage = error instanceof Error ? error.message : String(error);
         logger.error(`Failed to add role to ${newMember.user.username}: ${errorMessage}`);
       }
+    } else {
+      logger.info(`No role change for ${newMember.user.username}. GitHub: ${hasGitHubRole}; Warden Tag: ${hasWardenTagRole}`);
     }
   }
 };
