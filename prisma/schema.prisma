@@ -26,10 +26,7 @@ model User {
   messageCount   Int       @default(0)
   lastMessageAt  DateTime? @db.Timestamp
   joinedAt       DateTime  @default(now()) @db.Timestamp
-  riskScore      Int       @default(0)
   lastScan       DateTime? @db.Timestamp
-
-  @@index([riskScore])
 }
 
 model Ban {
