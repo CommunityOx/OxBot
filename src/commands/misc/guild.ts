@@ -14,8 +14,9 @@ const Guild: Command = {
           { name: 'ESX', value: 'esx' },
           { name: 'Qbox', value: 'qbox' },
           { name: 'Overextended', value: 'ox' },
-          { name: 'txAdmin', value: 'txAdmin' },
-          { name: 'Cfx.re', value: 'cfx' }
+          { name: 'txAdmin', value: 'txadmin' },
+          { name: 'Cfx.re', value: 'cfx' },
+          { name: 'Warden', value: 'warden' },
         )
     ),
 
@@ -32,11 +33,14 @@ const Guild: Command = {
       case 'ox':
         await interaction.reply('https://discord.gg/hmcmv3P7YW');
         break;
-      case 'txAdmin':
+      case 'txadmin':
         await interaction.reply('https://discord.gg/yWxjt9zPWR');
         break;
       case 'cfx':
         await interaction.reply('https://discord.gg/fivem');
+        break;
+      case 'warden':
+        await interaction.reply('https://discord.gg/MVNZR73Ghf');
         break;
       default:
         await interaction.reply({ content: 'Invalid guild selected.', flags: MessageFlags.Ephemeral });
