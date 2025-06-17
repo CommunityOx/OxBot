@@ -19,7 +19,6 @@ export async function warnUser(
   member: GuildMember,
   issuer: GuildMember,
   reason: string,
-  isAutomatic: boolean = false
 ): Promise<{
   success: boolean;
   warnId?: number;
@@ -35,7 +34,7 @@ export async function warnUser(
 
     const { id } = await prisma.warn.create({
       data: {
-        reason: isAutomatic ? `[AUTO] ${reason}` : reason,
+        reason: reason,
         issuerId: issuer.id,
         targetId: member.user.id,
       },
@@ -62,7 +61,7 @@ export async function warnUser(
       id
     );
 
-    await sendWarningDM(member.user, reason, combinedTimeoutDuration, isAutomatic);
+    await sendWarningDM(member.user, reason, combinedTimeoutDuration);
 
     return {
       success: true,
@@ -157,7 +156,7 @@ const Warn: Command = {
       const member = await interaction.guild.members.fetch(userOption.id);
       const issuer = await interaction.guild.members.fetch(interaction.user.id);
 
-      const result = await warnUser(member, issuer, reasonOption, false);
+      const result = await warnUser(member, issuer, reasonOption);
 
       if (result.success) {
         await (interaction.channel as TextChannel)?.send(
