@@ -19,7 +19,6 @@ export const onMemberJoin = async (member: GuildMember) => {
         id: member.user.id,
         warns: 0,
         timeouts: 0,
-        messageCount: 0,
         joinedAt: member.joinedAt || new Date(),
       },
     });
