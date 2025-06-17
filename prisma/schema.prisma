@@ -23,13 +23,7 @@ model User {
   warns          Int       @default(0)
   timeouts       Int       @default(0)
   warnings       Warn[]
-  messageCount   Int       @default(0)
-  lastMessageAt  DateTime? @db.Timestamp
   joinedAt       DateTime  @default(now()) @db.Timestamp
-  riskScore      Int       @default(0)
-  lastScan       DateTime? @db.Timestamp
-
-  @@index([riskScore])
 }
 
 model Ban {

@@ -39,10 +39,7 @@ async function processUserBatch(
           id: member.id,
           warns: 0,
           timeouts: 0,
-          messageCount: 0,
           joinedAt: member.joinedAt || new Date(),
-          riskScore: 0,
-          lastScan: null,
         },
         update: {},
       });

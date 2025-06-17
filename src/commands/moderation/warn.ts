@@ -89,17 +89,11 @@ export async function warnUser(
   }
 }
 
-async function sendWarningDM(user: User, reason: string, timeoutDuration: number | null, isAutomatic: boolean = false) {
-  const warningType = isAutomatic ? 'Automatic warning' : 'Warning';
-  let dmMessage = `${warningType}: ${reason}`;
+async function sendWarningDM(user: User, reason: string, timeoutDuration: number | null) {
+  let dmMessage = `Warning: ${reason}`;
 
   if (timeoutDuration !== null) {
     dmMessage += `\nYou have been placed in timeout for ${timeoutDuration / 60000} minutes due to accumulated warnings.`;
-  }
-
-  if (isAutomatic) {
-    dmMessage +=
-      '\n\nThis warning was automatically issued by our risk detection system. If you believe this was a mistake, please contact the moderators.';
   }
 
   try {
