@@ -32,7 +32,6 @@ export const Roles: Record<string, string> = {
   Moderator: '1367628486117949440',
   RecognizedMember: '1367126506958098513',
   GitHub: '1369761529788108910',
-  SupportAccess: '1373360625887215616',
   WardenTag: '1367126592446267425',
   Member: '1367235724935696506',
 };
