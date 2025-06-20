@@ -15,12 +15,16 @@ const FixRoles: Command = {
       return;
     }
 
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+
     const members = await interaction.guild.members.fetch();
 
     let updatedMembers = 0;
     let failedMembers = 0;
 
-    for (const member of members.values()) {
+    const allMembers = [...members.values()];
+
+    for (const member of allMembers) {
       const hasMemberRole = member.roles.cache.has(Roles.Member);
       const hasWardenTagRole = member.roles.cache.has(Roles.WardenTag);
 
@@ -41,6 +45,7 @@ const FixRoles: Command = {
           logger.error(`Failed to add Member role to empty user - ${member.user.tag}:`, error);
         }
       }
+      await new Promise(res => setTimeout(res, 200));
     }
 
     let responseMessage = '';
@@ -57,7 +62,7 @@ const FixRoles: Command = {
       responseMessage = 'No role updates were necessary.';
     }
 
-    await interaction.reply({ content: responseMessage, flags: MessageFlags.Ephemeral });
+    await interaction.editReply({ content: responseMessage });
   },
 };
 
