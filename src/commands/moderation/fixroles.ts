@@ -28,9 +28,12 @@ const FixRoles: Command = {
       const hasMemberRole = member.roles.cache.has(Roles.Member);
       const hasWardenTagRole = member.roles.cache.has(Roles.WardenTag);
 
+      let rolesChanged = false;
+
       if (hasMemberRole && hasWardenTagRole) {
         try {
           await member.roles.remove(Roles.Member);
+          rolesChanged = true;
           updatedMembers += 1;
         } catch (error) {
           failedMembers += 1;
@@ -39,13 +42,15 @@ const FixRoles: Command = {
       } else if (!hasMemberRole && !hasWardenTagRole) {
         try {
           await member.roles.add(Roles.Member);
+          rolesChanged = true;
           updatedMembers += 1;
         } catch (error) {
           failedMembers += 1;
           logger.error(`Failed to add Member role to empty user - ${member.user.tag}:`, error);
         }
       }
-      await new Promise(res => setTimeout(res, 200));
+
+      if (rolesChanged) await new Promise(res => setTimeout(res, 200));
     }
 
     let responseMessage = '';
