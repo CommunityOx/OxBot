@@ -18,7 +18,7 @@ const prisma = new PrismaClient();
 export async function warnUser(
   member: GuildMember,
   issuer: GuildMember,
-  reason: string,
+  reason: string
 ): Promise<{
   success: boolean;
   warnId?: number;

@@ -29,7 +29,9 @@ export const onMemberRoleUpdate = async (auditLogEntry: GuildAuditLogsEntry, gui
   if (!targetUser.roles.cache.has(Roles.WardenTag) && !targetUser.roles.cache.has(Roles.Member)) {
     try {
       await targetUser.roles.add(Roles.Member);
-      logger.info(`${targetUser.user.username} was unblacklisted by Warden and didn't get the default member role, role has been returned.`);
+      logger.info(
+        `${targetUser.user.username} was unblacklisted by Warden and didn't get the default member role, role has been returned.`
+      );
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : String(error);
       logger.error(`Failed to add role to ${targetUser.user.username}: ${errorMessage}`);

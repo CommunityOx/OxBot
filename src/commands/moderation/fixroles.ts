@@ -50,7 +50,7 @@ const FixRoles: Command = {
         }
       }
 
-      if (rolesChanged) await new Promise(res => setTimeout(res, 200));
+      if (rolesChanged) await new Promise((res) => setTimeout(res, 200));
     }
 
     let responseMessage = '';

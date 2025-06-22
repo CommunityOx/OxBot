@@ -38,7 +38,7 @@ export const onMemberJoin = async (member: GuildMember) => {
   }
 
   try {
-    await new Promise(res => setTimeout(res, 5000));
+    await new Promise((res) => setTimeout(res, 5000));
 
     // re-fetch the member to ensure we have the latest role information
     const freshMember = await member.guild.members.fetch(member.id);

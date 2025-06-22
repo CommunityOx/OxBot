@@ -16,7 +16,7 @@ const Guild: Command = {
           { name: 'Overextended', value: 'ox' },
           { name: 'txAdmin', value: 'txadmin' },
           { name: 'Cfx.re', value: 'cfx' },
-          { name: 'Warden', value: 'warden' },
+          { name: 'Warden', value: 'warden' }
         )
     ),
 
