@@ -13,7 +13,7 @@ export const onMemberRoleUpdate = async (auditLogEntry: GuildAuditLogsEntry, gui
 
   if (auditLogEntry.executorId !== '874059310869655662') return; // Only trigger if it's VVarden
 
-  logger.info(`Fetching member: ${auditLogEntry.targetId}`);
+  logger.debug(`Fetching member: ${auditLogEntry.targetId}`);
 
   let targetUser;
   try {
@@ -23,18 +23,16 @@ export const onMemberRoleUpdate = async (auditLogEntry: GuildAuditLogsEntry, gui
   }
 
   if (!targetUser) {
-    return logger.info('Unable to find targetUser following MemberRoleUpdate triggering by VVarden');
+    return logger.info('Unable to find targetUser following MemberRoleUpdate triggering by Warden');
   }
 
-  if (targetUser.roles.cache.has(Roles.Member)) return; // Member still has the role, no further action required
-
-  try {
-    await targetUser.roles.add(Roles.Member);
-    logger.info(
-      `${targetUser.user.username} was unblacklisted by VVarden and lost the default member role, role has been returned.`
-    );
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    logger.error(`Failed to add role to ${targetUser.user.username}: ${errorMessage}`);
+  if (!targetUser.roles.cache.has(Roles.WardenTag) && !targetUser.roles.cache.has(Roles.Member)) {
+    try {
+      await targetUser.roles.add(Roles.Member);
+      logger.info(`${targetUser.user.username} was unblacklisted by Warden and didn't get the default member role, role has been returned.`);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      logger.error(`Failed to add role to ${targetUser.user.username}: ${errorMessage}`);
+    }
   }
 };
