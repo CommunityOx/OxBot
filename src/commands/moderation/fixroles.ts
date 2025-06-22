@@ -15,7 +15,7 @@ const FixRoles: Command = {
       return;
     }
 
-    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+    await interaction.deferReply();
 
     const members = await interaction.guild.members.fetch();
 
