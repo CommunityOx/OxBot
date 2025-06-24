@@ -22,7 +22,7 @@ const FixRoles: Command = {
     let updatedMembers = 0;
     let failedMembers = 0;
 
-    const allMembers = [...members.values()];
+    const allMembers = [...members.values()].filter((member) => !member.user.bot);
 
     for (const member of allMembers) {
       const hasMemberRole = member.roles.cache.has(Roles.Member);
