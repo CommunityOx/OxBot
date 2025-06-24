@@ -13,10 +13,13 @@ export const onMemberRoleUpdate = async (auditLogEntry: GuildAuditLogsEntry, gui
 
   if (auditLogEntry.executorId !== '874059310869655662') return; // Only trigger if it's VVarden
 
-  logger.debug(`Fetching member: ${auditLogEntry.targetId}`);
+  // logger.debug(`Fetching member: ${auditLogEntry.targetId}`);
 
   let targetUser;
   try {
+    // Wait for a short period to give Warden some time to realize it just removed the role lol
+    await new Promise((res) => setTimeout(res, 5000));
+
     targetUser = await guild.members.fetch(auditLogEntry.targetId);
   } catch (error) {
     return logger.info(`Target user ${auditLogEntry.targetId} not found, possibly left.`);
