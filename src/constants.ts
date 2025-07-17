@@ -42,4 +42,7 @@ export const Channels: Record<string, string> = {
   General: '1367096781308952609',
   Shitposting: '1367099791959658536',
   Entertainment: '1369649770708074556',
+  Support: '1367122035154751539',
 };
+
+export const SolvedTag = '1368624103552057495';

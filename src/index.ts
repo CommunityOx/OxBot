@@ -11,6 +11,7 @@ import { onMemberJoin } from './events/onMemberJoin';
 import { onMessageDeleteBulk } from './events/onPurge';
 import { onSlashCommand } from './events/onSlashCommand';
 import { onMemberRoleUpdate } from './events/onMemberRoleUpdate';
+import { onThreadUpdate } from './events/onThreadUpdate';
 
 export const Bot = new Client({
   intents: [
@@ -51,5 +52,6 @@ Bot.on(Events.InteractionCreate, async (interaction) => {
   await onInteraction(interaction);
   await onSlashCommand(interaction);
 });
+Bot.on(Events.ThreadUpdate, async (oldThread, newThread) => await onThreadUpdate(oldThread, newThread));
 
 Bot.login(Config.DISCORD_TOKEN);
