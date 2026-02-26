@@ -1,9 +1,9 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
-import { PrismaClient } from '@prisma/client';
+import { eq } from 'drizzle-orm';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
-
-const prisma = new PrismaClient();
+import db from '../../utils/db';
+import { warn } from '../../utils/db/schema';
 
 const FetchWarns: Command = {
   data: new SlashCommandBuilder()
@@ -20,10 +20,13 @@ const FetchWarns: Command = {
     const userOption = interaction.options.getUser('user', true);
 
     try {
-      const warnings = await prisma.warn.findMany({
-        where: { targetId: userOption.id },
-        select: { id: true, reason: true },
-      });
+      const warnings = await db
+        .select({
+          id: warn.id,
+          reason: warn.reason,
+        })
+        .from(warn)
+        .where(eq(warn.targetId, userOption.id));
 
       if (warnings.length === 0) {
         await interaction.reply({

@@ -1,28 +1,25 @@
 import { GuildMember } from 'discord.js';
 import logger from '../utils/logger';
-import { PrismaClient } from '@prisma/client';
 import { Roles } from '../constants';
-
-const prisma = new PrismaClient();
+import db, { formatDate } from '../utils/db';
+import { user } from '../utils/db/schema';
 
 export const onMemberJoin = async (member: GuildMember) => {
   logger.debug(`Member join event triggered for ${member.user.tag} (${member.id})`);
 
   try {
-    await prisma.user.upsert({
-      where: {
-        id: member.user.id,
-      },
-      update: {
-        joinedAt: member.joinedAt || new Date(),
-      },
-      create: {
+    await db.insert(user)
+      .values({
         id: member.user.id,
         warns: 0,
         timeouts: 0,
-        joinedAt: member.joinedAt || new Date(),
-      },
-    });
+        joinedAt: formatDate(member.joinedAt || new Date()),
+      })
+      .onDuplicateKeyUpdate({
+        set: { 
+          joinedAt: formatDate(member.joinedAt || new Date()),
+        }
+      });
     logger.debug(`Created/Updated initial user record for ${member.user.tag}`);
   } catch (error) {
     logger.error(

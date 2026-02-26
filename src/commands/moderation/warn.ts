@@ -8,12 +8,12 @@ import {
   TextChannel,
   MessageFlags,
 } from 'discord.js';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { eq, sql } from 'drizzle-orm';
 import { Command } from '../../interfaces/command';
 import { handleMemberWarn } from '../../events/onMemberWarn';
 import logger from '../../utils/logger';
-
-const prisma = new PrismaClient();
+import db from '../../utils/db';
+import { user, warn } from '../../utils/db/schema';
 
 export async function warnUser(
   member: GuildMember,
@@ -26,18 +26,25 @@ export async function warnUser(
   timeoutDuration?: number;
 }> {
   try {
-    const targetUser = await prisma.user.upsert({
-      where: { id: member.user.id },
-      update: { warns: { increment: 1 } },
-      create: { id: member.user.id, warns: 1 },
-    });
+    const { targetUser, warnId } = await db.transaction(async (tx) => {
+      await tx.insert(user)
+        .values({ id: member.user.id, warns: 1 })
+        .onDuplicateKeyUpdate({
+          set: { warns: sql`${user.warns} + 1` }
+        });
 
-    const { id } = await prisma.warn.create({
-      data: {
+      const [targetUser] = await tx
+        .select()
+        .from(user)
+        .where(eq(user.id, member.user.id));
+
+      const [warnInsert] = await tx.insert(warn).values({
         reason: reason,
         issuerId: issuer.id,
         targetId: member.user.id,
-      },
+      });
+
+      return { targetUser, warnId: warnInsert.insertId };
     });
 
     const timeoutDuration = calculateTimeoutDuration(targetUser.warns);
@@ -58,23 +65,27 @@ export async function warnUser(
       targetUser.warns,
       combinedTimeoutDuration,
       member.guild,
-      id
+      warnId
     );
 
     await sendWarningDM(member.user, reason, combinedTimeoutDuration);
 
     return {
       success: true,
-      warnId: id,
+      warnId,
       timeoutDuration: combinedTimeoutDuration,
     };
   } catch (error) {
     logger.error('Error processing warning:', error);
     let errorMessage = 'An error occurred while processing the warning.';
 
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      errorMessage =
-        error.code === 'P2002' ? 'There was a unique constraint violation.' : `Database error: ${error.message}`;
+    if (error instanceof Error && 'code' in error) {
+      const mysqlError = error as any;
+      if (mysqlError.code === 'ER_DUP_ENTRY') {
+        errorMessage = 'There was a unique constraint violation.';
+      } else {
+        errorMessage = `Database error: ${error.message}`;
+      }
     } else if (error instanceof DiscordAPIError) {
       errorMessage = `Discord API error: ${error.message}`;
     } else if (error instanceof Error && error.name === 'PermissionError') {

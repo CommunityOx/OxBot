@@ -1,9 +1,9 @@
 import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, MessageFlags } from 'discord.js';
-import { PrismaClient } from '@prisma/client';
+import { eq } from 'drizzle-orm';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
-
-const prisma = new PrismaClient();
+import db from '../../utils/db';
+import { ban } from '../../utils/db/schema';
 
 const Unban: Command = {
   data: new SlashCommandBuilder()
@@ -35,18 +35,14 @@ const Unban: Command = {
     }
 
     try {
-      const banRecord = await prisma.ban.findFirst({
-        where: {
-          targetId: user.id,
-        },
-      });
+      const [banRecord] = await db
+        .select()
+        .from(ban)
+        .where(eq(ban.targetId, user.id))
+        .limit(1);
 
       if (banRecord) {
-        await prisma.ban.delete({
-          where: {
-            id: banRecord.id,
-          },
-        });
+        await db.delete(ban).where(eq(ban.id, banRecord.id));
       }
 
       await interaction.guild.members.unban(user, reason);

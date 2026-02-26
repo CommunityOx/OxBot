@@ -5,11 +5,11 @@ import {
   GuildMember,
   MessageFlags,
 } from 'discord.js';
-import { PrismaClient } from '@prisma/client';
+import { and, eq } from 'drizzle-orm';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
-
-const prisma = new PrismaClient();
+import db from '../../utils/db';
+import { user, warn } from '../../utils/db/schema';
 
 const ClearWarn: Command = {
   data: new SlashCommandBuilder()
@@ -46,13 +46,12 @@ const ClearWarn: Command = {
     try {
       if (warnIdOption.toLowerCase() === 'all') {
         // Clear all warnings
-        await prisma.warn.deleteMany({ where: { targetId: userOption.id } });
+        await db.delete(warn).where(eq(warn.targetId, userOption.id));
 
         // Reset the warns count in User model
-        await prisma.user.update({
-          where: { id: userOption.id },
-          data: { warns: 0 },
-        });
+        await db.update(user)
+          .set({ warns: 0 })
+          .where(eq(user.id, userOption.id));
 
         // Remove timeout if present
         if (member.communicationDisabledUntilTimestamp && member.communicationDisabledUntilTimestamp > Date.now()) {
@@ -68,14 +67,15 @@ const ClearWarn: Command = {
           return;
         }
 
-        const result = await prisma.warn.deleteMany({
-          where: {
-            id: warnId,
-            targetId: userOption.id,
-          },
-        });
+        const [result] = await db.delete(warn)
+          .where(
+            and(
+              eq(warn.id, warnId),
+              eq(warn.targetId, userOption.id)
+            )
+          );
 
-        if (result.count === 0) {
+        if (result.affectedRows === 0) {
           await interaction.editReply('No warning found with the provided ID for this user.');
         } else {
           await interaction.editReply(`Cleared warning ID ${warnId} for <@${userOption.id}>.`);

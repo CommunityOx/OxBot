@@ -1,9 +1,9 @@
 import { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { eq } from 'drizzle-orm';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
-
-const prisma = new PrismaClient();
+import db from '../../utils/db';
+import { warn } from '../../utils/db/schema';
 
 const EditWarning: Command = {
   data: new SlashCommandBuilder()
@@ -27,24 +27,29 @@ const EditWarning: Command = {
     const newMessageOption = interaction.options.getString('newmessage', true);
 
     try {
-      const updatedWarning = await prisma.warn.update({
-        where: { id: warningIdOption },
-        data: { reason: newMessageOption },
-      });
+      const [result] = await db.update(warn)
+        .set({ reason: newMessageOption })
+        .where(eq(warn.id, warningIdOption));
+
+      if (result.affectedRows === 0) {
+        await interaction.reply({ 
+          content: 'Warning not found.', 
+          flags: MessageFlags.Ephemeral 
+        });
+        return;
+      }
 
       await interaction.reply({
-        content: `Warning ID ${updatedWarning.id} has been updated.`,
+        content: `Warning ID ${warningIdOption} has been updated.`,
         flags: MessageFlags.Ephemeral,
       });
     } catch (error) {
       logger.error('Error updating the warning:', error);
-      let errorMessage = 'An error occurred while updating the warning.';
-
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-        errorMessage = 'Warning not found.';
-      }
-
-      await interaction.reply({ content: errorMessage, flags: MessageFlags.Ephemeral });
+      
+      await interaction.reply({ 
+        content: 'An error occurred while updating the warning.', 
+        flags: MessageFlags.Ephemeral 
+      });
     }
   },
 };

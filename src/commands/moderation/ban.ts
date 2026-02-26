@@ -1,9 +1,8 @@
 import { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
-import { PrismaClient } from '@prisma/client';
 import { Command } from '../../interfaces/command';
 import logger from '../../utils/logger';
-
-const prisma = new PrismaClient();
+import db from '../../utils/db';
+import { ban } from '../../utils/db/schema';
 
 const Ban: Command = {
   data: new SlashCommandBuilder()
@@ -40,12 +39,10 @@ const Ban: Command = {
     try {
       await interaction.guild.members.ban(user, { reason: reason, deleteMessageDays: deleteMessageDays });
 
-      await prisma.ban.create({
-        data: {
-          reason: reason,
-          issuerId: interaction.user.id,
-          targetId: user.id,
-        },
+      await db.insert(ban).values({
+        reason: reason,
+        issuerId: interaction.user.id,
+        targetId: user.id,
       });
 
       await interaction.reply({ content: `<@${user.id}> has been **banned**. Reason: ${reason}` });

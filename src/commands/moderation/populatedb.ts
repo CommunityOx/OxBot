@@ -6,10 +6,9 @@ import {
   MessageFlags,
 } from 'discord.js';
 import { Command } from '../../interfaces/command';
-import { PrismaClient } from '@prisma/client';
 import logger from '../../utils/logger';
-
-const prisma = new PrismaClient();
+import db, { formatDate } from '../../utils/db';
+import { user } from '../../utils/db/schema';
 
 const BATCH_SIZE = 100;
 const DELAY_BETWEEN_BATCHES = 5000;
@@ -33,16 +32,16 @@ async function processUserBatch(
 
   for (const member of members) {
     try {
-      await prisma.user.upsert({
-        where: { id: member.id },
-        create: {
+      await db.insert(user)
+        .values({
           id: member.id,
           warns: 0,
           timeouts: 0,
-          joinedAt: member.joinedAt || new Date(),
-        },
-        update: {},
-      });
+          joinedAt: formatDate(member.joinedAt || new Date()), 
+        })
+        .onDuplicateKeyUpdate({ 
+          set: { id: member.id }
+        });
 
       result.success++;
 
